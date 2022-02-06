@@ -61,7 +61,7 @@ class Move:
     def __hash__(self):
         return hash((self.oldPos, self.newPos))
 
-    # Cancle the move
+    # Undo the move
     def reverse(self):
         return Move(self.piece, self.piece.position, pieceToCapture=self.pieceToCapture)
     

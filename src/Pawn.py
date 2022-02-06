@@ -9,8 +9,8 @@ class Pawn(Piece):
     stringRep = "P"
     value = 1
 
-    def __init__(self, side, position, movesMade=0):
-        super().__init__(side, position)
+    def __init__(self, board, side, position, movesMade=0):
+        super().__init__(board, side, position)
         self.movesMade = movesMade
 
     # yield moves without evaluate if it's valid
