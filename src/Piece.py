@@ -6,6 +6,7 @@ BLACK = False
 X = 0
 Y = 1
 
+
 class Piece:
     def __init__(self, board, side, position, movesMade=0):
         self.board = board
@@ -13,7 +14,6 @@ class Piece:
         self.position = position
         self.movesMade = 0
 
-    # 打印Piece的魔法方法
     def __str__(self):
         sideString = "White" if self.side == WHITE else "Black"
         return (
@@ -33,8 +33,8 @@ class Piece:
 
     def __eq__(self, other):
         if (
-            # self.board == other.board
-            self.side == other.side
+            self.board == other.board
+            and self.side == other.side
             and self.position == other.position
             and self.__class__ == other.__class__
         ):
@@ -42,9 +42,7 @@ class Piece:
         return False
 
     def copy(self):
-        cpy = self.__class__(
-            self.board, self.side, self.position, self.movesMade
-        )
+        cpy = self.__class__(self.board, self.side, self.position, self.movesMade)
         return cpy
 
     # Get all moves in direction
@@ -52,11 +50,12 @@ class Piece:
         for dis in range(1, 8):
             movement = C(dis * direction[X], dis * direction[Y])
             newPos = pos + movement
-            pieceAtNewPos = self.board.pieceAtPosition(newPos)
-            if pieceAtNewPos is None:
-                yield Move(self, newPos)
-            
-            elif pieceAtNewPos is not None:
-                if pieceAtNewPos.side != side:
-                    yield Move(self, newPos, pieceToCapture=pieceAtNewPos)
-                return
+            if self.board.isValidPos(newPos):
+                pieceAtNewPos = self.board.pieceAtPosition(newPos)
+                if pieceAtNewPos is None:
+                    yield Move(self, newPos)
+
+                elif pieceAtNewPos is not None:
+                    if pieceAtNewPos.side != side:
+                        yield Move(self, newPos, pieceToCapture=pieceAtNewPos)
+                    return

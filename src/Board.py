@@ -5,7 +5,7 @@ from Queen import Queen
 from Knight import Knight
 from Pawn import Pawn
 from Rook import Rook
-# from King import King
+from King import King
 from Coordinate import Coordinate as C
 from Move import Move
 from termcolor import colored
@@ -28,7 +28,7 @@ class Board:
                 Knight(self, BLACK, C(1, 7)),
                 Bishop(self, BLACK, C(2, 7)),
                 Queen(self, BLACK, C(3, 7)),
-                #King(self, BLACK, C(4, 7)),
+                King(self, BLACK, C(4, 7)),
                 Bishop(self, BLACK, C(5, 7)),
                 Knight(self, BLACK, C(6, 7)),
                 Rook(self, BLACK, C(7, 7))
@@ -44,7 +44,7 @@ class Board:
                 Knight(self, WHITE, C(1, 0)),
                 Bishop(self, WHITE, C(2, 0)),
                 Queen(self, WHITE, C(3, 0)),
-                #King(self, WHITE, C(4, 0)),
+                King(self, WHITE, C(4, 0)),
                 Bishop(self, WHITE, C(5, 0)),
                 Knight(self, WHITE, C(6, 0)),
                 Rook(self, WHITE, C(7, 0))
@@ -52,7 +52,7 @@ class Board:
         )
 
     def __str__(self):
-        return self.makeStringRep(self.pieces)
+        return self.wrapStringRep(self.makeStringRep(self.pieces))
 
     def makeStringRep(self, pieces):
         stringRep = ""
@@ -74,6 +74,31 @@ class Board:
             stringRep += "\n"
         return stringRep.rstrip()
 
+    def wrapStringRep(self, stringRep):
+        sRep = "\n".join(
+            [
+                "%d  %s" % (8-r, s.rstrip())
+                for r, s in enumerate(stringRep.split("\n"))
+            ]
+            + ["\n   a b c d e f g h"]
+        ).rstrip()
+        return sRep
+
+    def getCurrentSide(self):
+        return self.currentSide
+    
+    def pieceAtPosition(self, pos):
+        for piece in self.pieces:
+            if piece.position == pos:
+                return piece
+
+    def isValidPos(self, pos):
+        if 0<= pos[0] <= 7 and 0 <= pos[1] <= 7:
+            return True
+        else:
+            return False
+    
+    
 if __name__ == "__main__":
     board = Board()
     print(board)

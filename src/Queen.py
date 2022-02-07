@@ -4,6 +4,7 @@ from Piece import Piece
 WHITE = True
 BLACK = False
 
+
 class Queen(Piece):
 
     stringRep = "Q"
@@ -20,11 +21,13 @@ class Queen(Piece):
             C(0, -1),
             C(1, 0),
             C(-1, 0),
-            C(1, 1), 
-            C(1, -1), 
-            C(-1, 1), 
-            C(-1, -1)
+            C(1, 1),
+            C(1, -1),
+            C(-1, 1),
+            C(-1, -1),
         ]
         for direction in directions:
-            for move in self.movesInDirectionFromPos(currentPosition, direction, self.side):
+            for move in self.movesInDirectionFromPos(
+                currentPosition, direction, self.side
+            ):
                 yield move

@@ -6,33 +6,34 @@ WHITE = True
 BLACK = False
 
 
-class Knight(Piece):
+class King(Piece):
 
-    stringRep = "N"
-    value = 3
+    stringRep = "K"
+    value = 100
 
     def __init__(self, board, side, position, movesMade=0):
         super().__init__(board, side, position)
         self.movesMade = movesMade
 
     def getPossibleMoves(self):
-        board = self.board
         currentPos = self.position
         movements = [
-            C(2, 1),
-            C(2, -1),
-            C(-2, 1),
-            C(-2, -1),
-            C(1, 2),
-            C(1, -2),
-            C(-1, -2),
-            C(-1, 2),
+            C(0, 1),
+            C(0, -1),
+            C(1, 0),
+            C(-1, 0),
+            C(1, 1),
+            C(1, -1),
+            C(-1, -1),
+            C(-1, 1),
         ]
         for movement in movements:
             newPos = currentPos + movement
-            if board.isValidPos(newPos):
-                pieceAtNewPos = board.pieceAtPosition(newPos)
+            if self.board.isValidPos(newPos):
+                pieceAtNewPos = self.board.pieceAtPosition(newPos)
                 if pieceAtNewPos is None:
                     yield Move(self, newPos)
-                elif pieceAtNewPos != self.side:
+                elif pieceAtNewPos.side != self.side:
                     yield Move(self, newPos, pieceToCapture=pieceAtNewPos)
+
+        # TODO: Castling

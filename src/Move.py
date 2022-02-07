@@ -1,8 +1,5 @@
-from tokenize import Special
-
-
 class Move:
-    def __init__(self, piece, newPos, pieceToCapture):
+    def __init__(self, piece, newPos, pieceToCapture=None):
         self.notation = None
         self.check = False
         self.checkmate = False
@@ -64,4 +61,3 @@ class Move:
     # Undo the move
     def reverse(self):
         return Move(self.piece, self.piece.position, pieceToCapture=self.pieceToCapture)
-    

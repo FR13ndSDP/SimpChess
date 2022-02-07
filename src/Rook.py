@@ -4,6 +4,7 @@ from Piece import Piece
 WHITE = True
 BLACK = False
 
+
 class Rook(Piece):
 
     stringRep = "R"
@@ -22,8 +23,3 @@ class Rook(Piece):
                 currentPosition, direction, self.side
             ):
                 yield move
-
-if __name__ == "__main__":
-    r = Rook(WHITE, C(1, 1), 0)
-    for i in r.getPossibleMoves():
-        print(i)
