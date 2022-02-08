@@ -34,5 +34,5 @@ class Knight(Piece):
                 pieceAtNewPos = board.pieceAtPosition(newPos)
                 if pieceAtNewPos is None:
                     yield Move(self, newPos)
-                elif pieceAtNewPos != self.side:
+                elif pieceAtNewPos.side != self.side:
                     yield Move(self, newPos, pieceToCapture=pieceAtNewPos)
