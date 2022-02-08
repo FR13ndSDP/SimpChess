@@ -10,9 +10,3 @@ class Coordinate(tuple):
 
     def __sub__(self, other):
         return Coordinate(self[0] - other[0], self[1] - other[1])
-
-
-if __name__ == "__main__":
-    coord1 = Coordinate(0, 7)
-    coord2 = Coordinate(1, 1)
-    print(coord1 + coord2)
