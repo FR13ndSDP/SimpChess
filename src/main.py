@@ -43,7 +43,7 @@ if __name__ == "__main__":
     playSide = WHITE
     board = Board()
     print(board)
-    ai = AI(board, not playSide, 1)
+    ai = AI(board, not playSide, 2)
     try:
         while True:
             if board.isCheckmate():
@@ -54,7 +54,7 @@ if __name__ == "__main__":
                 move = parseInput(board, command)
                 board.makeMove(move)
             else:
-                ai.makeRandomMove()
+                ai.makeBestMove()
                 print(board)
     except KeyboardInterrupt:
         sys.exit()

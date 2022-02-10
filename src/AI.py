@@ -61,12 +61,47 @@ class AI:
             self.populateNodeChildren(node.children[-1])
             self.board.undoLastMove()
 
+    def getBestMove(self):
+        moveTree = self.generateMoveTree()
+        bestMoves = self.bestMovesWithMoveTree(moveTree)
+        randomBestMove = random.choice(bestMoves)
+        return randomBestMove
 
+    def bestMovesWithMoveTree(self, moveTree):
+        bestMoveNodes = []
+        for moveNode in moveTree:
+            moveNode.point = self.getMaxPointOfNode(moveNode)
+            if not bestMoveNodes:
+                bestMoveNodes.append(moveNode)
+            elif moveNode > bestMoveNodes[0]:
+                bestMoveNodes = []
+                bestMoveNodes.append(moveNode)
+            elif moveNode == bestMoveNodes[0]:
+                bestMoveNodes.append(moveNode)
+        return [node.move for node in bestMoveNodes]
+
+    def getMaxPointOfNode(self, node):
+        if node.children:
+            for child in node.children:
+                child.point = self.getMaxPointOfNode(child)
+            
+            if node.children[0].depth % 2 == 1:
+                return max(node.children).point
+            else:
+                # opponnet's turn
+                # face the worst situation
+                return min(node.children).point
+        
+        return node.point
+
+    def makeBestMove(self):
+        bestMove = self.getBestMove()
+        self.board.makeMove(bestMove)
     
 if __name__ == "__main__":
     playSide = WHITE
     board = Board()
-    print(board)
     ai = AI(board, playSide, 2)
-    moveTree = ai.generateMoveTree()
-    print(moveTree[0].children[0].point)
+    ai.makeBestMove()
+    print(board)
+    print(board.movesMade)

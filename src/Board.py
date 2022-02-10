@@ -20,6 +20,7 @@ class Board:
         self.history = []
         self.points = 0
         self.currentSide = WHITE
+        # board history include undone moves
         self.movesMade = 0
         self.checkmate = False
 
