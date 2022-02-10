@@ -109,18 +109,6 @@ class Board:
         else:
             return False
 
-    def humanCoordToPosition(self, coord):
-        transTable = str.maketrans("abcdefgh", "12345678")
-        coord = coord.translate(transTable)
-        coord = [int(c) - 1 for c in coord]
-        pos = C(coord[0], coord[1])
-        return pos
-
-    def positionToHumanCoord(self, pos):
-        transTable = str.maketrans("01234567", "abcdefgh")
-        notation = str(pos[0]).translate(transTable) + str(pos[1] + 1)
-        return notation
-
     def movePieceToPosition(self, piece, coord):
         piece.position = coord
 
