@@ -54,5 +54,5 @@ class MoveNode:
                 highestNode = highestNode.parent
                 depthCnt += 1
             else:
-                self.depth = depthCnt
-                return
+                return depthCnt
+

@@ -45,7 +45,7 @@ class AI:
     # get all the nodes populated
     def populateNodeChildren(self, node):
         node.point = self.board.getPointValueOfSide(self.side)
-        node.getDepth()
+        node.depth = node.getDepth()
         if node.depth == self.depth:
             return
 
